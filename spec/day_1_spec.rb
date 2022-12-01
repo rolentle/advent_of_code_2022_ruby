@@ -47,11 +47,20 @@ describe 'day 1' do
       expect(Advent2022.elf_with_most_calories(fixture_input).id).to eq(209)
     end
 
-    it 'returns the XX total_calories for the 209th elf' do
+    it 'returns the 74_198 total_calories for the 209th elf' do
       fixture_input = File.read('./spec/fixtures/day_1_input.txt')
       store = Advent2022.elf_calories_store(fixture_input)
       elf = store.find { |e| e.id == 209 }
-      expect(elf.calories.sum).to eq(74198)
+      expect(elf.calories.sum).to eq(74_198)
+    end
+
+    it 'returns top 3 elves by calorie count' do
+      fixture_input = File.read('./spec/fixtures/day_1_input.txt')
+      store = Advent2022.elf_calories_store(fixture_input)
+      elves_order_by_calorie_count = Advent2022.elves_order_by_calorie_count(store)
+      top_three_elves = elves_order_by_calorie_count.last(3)
+      total_calories = top_three_elves.map(&:calories).map(&:sum).sum
+      expect(total_calories).to eq(209_914)
     end
   end
 end
