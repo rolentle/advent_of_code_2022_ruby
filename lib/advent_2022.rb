@@ -13,14 +13,14 @@ module Advent2022
   sig { params(list_of_calories: String).returns(Elf) }
   def self.elf_with_most_calories(list_of_calories)
     elf_store = elf_calories_store(list_of_calories)
-    elves_order_by_calorie_count(elf_store).last
+    T.must(elves_order_by_calorie_count(elf_store).last)
   end
 
   sig { params(elf_store: T::Array[Elf]).returns(T::Array[Elf]) }
   def self.elves_order_by_calorie_count(elf_store)
-    T.must(elf_store.sort do |a_elf, b_elf|
+    elf_store.sort do |a_elf, b_elf|
       a_elf.calories.sum <=> b_elf.calories.sum
-    end)
+    end
   end
 
   sig { params(list_of_calories: String).returns(T::Array[Elf]) }
