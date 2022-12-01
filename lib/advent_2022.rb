@@ -5,22 +5,29 @@ require 'sorbet-runtime'
 module Advent2022
   extend T::Sig
 
-  sig { params(list_of_calories: String).returns(Integer) }
-  def self.elf_with_most_calories(list_of_calories)
-    elf_calories_store = calories_of_elves(list_of_calories).each_with_object({}).with_index do |(calories, store), index|
-      store[index + 1] = calories
-    end
-    elf_calories_store.to_a.max do |(_, a_calories), (_, b_calories)|
-      a_calories.sum <=> b_calories.sum
-    end.first
+  class Elf < T::Struct
+    prop :id, Integer
+    prop :calories, T::Array[Integer]
   end
 
-  extend T::Sig
+  sig { params(list_of_calories: String).returns(Elf) }
+  def self.elf_with_most_calories(list_of_calories)
+    T.must(elf_calories_store(list_of_calories).max do |a_elf, b_elf|
+      a_elf.calories.sum <=> b_elf.calories.sum
+    end)
+  end
 
-  sig { params(list_of_calories: String).returns(T::Array[T::Array[Integer]]) }
-  def self.calories_of_elves(list_of_calories)
-    list_of_calories.split("\n\n").map do |individual_elf_calories|
+  # sig { params(elf_calories_store: T::Hash[Integer, T::Array[Integer]]).returns() }
+  # def self.total_calories_for_elf()
+  # end
+
+  sig { params(list_of_calories: String).returns(T::Array[Elf]) }
+  def self.elf_calories_store(list_of_calories)
+    parsed_input = list_of_calories.split("\n\n").map do |individual_elf_calories|
       individual_elf_calories.split("\n").map(&:to_i)
+    end
+    parsed_input.map.with_index do |calories, index|
+      Elf.new(id: index + 1, calories: calories)
     end
   end
 end
