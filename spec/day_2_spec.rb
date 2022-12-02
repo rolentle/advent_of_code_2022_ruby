@@ -32,16 +32,29 @@ C Z
     end
   end
 
-  describe '.encrypted_strategy_guide' do
+  describe '.predicted_encrypted_strategy_guide' do
     describe 'for example_input' do
       it 'returns 15' do
-        expect(Advent2022::PaperRockScissors.encrypted_strategy_guide(example_input)).to eq(
+        expect(Advent2022::PaperRockScissors.predicted_encrypted_strategy_guide(example_input)).to eq(
           [
             [Advent2022::PaperRockScissors::Choice::Rock, Advent2022::PaperRockScissors::Choice::Paper],
             [Advent2022::PaperRockScissors::Choice::Paper, Advent2022::PaperRockScissors::Choice::Rock],
             [Advent2022::PaperRockScissors::Choice::Scissors, Advent2022::PaperRockScissors::Choice::Scissors]
           ]
         )
+      end
+    end
+  end
+
+  describe '.actual_total_scores' do
+    describe 'for example_input' do
+      it 'returns 15, 12 for both players' do
+        expect(Advent2022::PaperRockScissors.actual_total_scores(example_input)).to eq([15, 12])
+      end
+
+      it 'returns 15 for both players' do
+        fixture_input = File.read('./spec/fixtures/day_2_input.txt')
+        expect(Advent2022::PaperRockScissors.actual_total_scores(fixture_input)).to eq([13755, 11657])
       end
     end
   end
