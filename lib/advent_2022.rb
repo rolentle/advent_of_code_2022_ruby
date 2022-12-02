@@ -34,4 +34,31 @@ module Advent2022
       Elf.new(id: index + 1, calories: calories)
     end
   end
+
+  # module to determine PaperRockScissors for day 2
+  module PaperRockScissors
+    extend T::Sig
+    # Defined choices for paper rocker scissors
+    class Choice < T::Enum
+      enums do
+        Paper = new
+        Rock = new
+        Scissors = new
+      end
+    end
+
+    sig { params(list_of_games: String).returns(T::Array[T::Array[T.nilable(Choice)]]) }
+    def self.encrypted_strategy_guide(list_of_games)
+      list_of_games.split("\n").map do |line|
+        line.split.map do |choice|
+          case choice
+          when 'A', 'X' then Choice::Rock
+          when 'B', 'Y' then Choice::Paper
+          when 'C', 'Z' then Choice::Scissors
+          else raise 'Parsing Error'
+          end
+        end
+      end
+    end
+  end
 end
