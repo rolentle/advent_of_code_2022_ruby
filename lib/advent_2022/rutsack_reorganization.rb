@@ -4,6 +4,20 @@
 module Advent2022
   module RutsackReorganization
     extend T::Sig
+    SCORE_STORE = (('a'..'z').to_a + ('A'..'Z').to_a).each_with_object({}).with_index do |(item_key, store), index|
+      store[item_key] = index + 1
+    end.freeze
+
+    sig { params(list_of_compartments: String).returns(Integer) }
+    def self.total_priority_score(list_of_compartments)
+      list_of_compartments.split("\n").map do |all_items|
+        compartment_split(all_items)
+      end.map do |compartments|
+        duplicated_item(compartments)
+      end.map do |duplicated_item|
+        item_priority_score(duplicated_item)
+      end.sum
+    end
 
     sig { params(all_items: String).returns(T::Array[T.nilable(String)]) }
     def self.compartment_split(all_items)
@@ -12,6 +26,17 @@ module Advent2022
       second_compartment = all_items[all_items_midpoint..-1]
 
       [first_compartment, second_compartment]
+    end
+
+    sig { params(compartments: T::Array[T.nilable(String)]).returns(String) }
+    def self.duplicated_item(compartments)
+      first_compartment, second_compartment = compartments
+      (first_compartment.split('') & second_compartment.split('')).first
+    end
+
+    sig { params(item: String).returns(Integer) }
+    def self.item_priority_score(item)
+      SCORE_STORE[item]
     end
   end
 end
