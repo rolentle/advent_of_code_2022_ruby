@@ -20,7 +20,7 @@ C Z
     describe 'for day_2_input' do
       it 'returns 15 for both players' do
         fixture_input = File.read('./spec/fixtures/day_2_input.txt')
-        expect(Advent2022::PaperRockScissors.predicted_total_scores(fixture_input)).to eq([13227, 10816])
+        expect(Advent2022::PaperRockScissors.predicted_total_scores(fixture_input)).to eq([13_227, 10_816])
       end
     end
   end
@@ -54,7 +54,7 @@ C Z
 
       it 'returns 15 for both players' do
         fixture_input = File.read('./spec/fixtures/day_2_input.txt')
-        expect(Advent2022::PaperRockScissors.actual_total_scores(fixture_input)).to eq([13755, 11657])
+        expect(Advent2022::PaperRockScissors.actual_total_scores(fixture_input)).to eq([13_755, 11_657])
       end
     end
   end
