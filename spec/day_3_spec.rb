@@ -36,4 +36,21 @@ CrZsJsPPZsGzwwsLwLmpwMDw
       expect(Advent2022::RutsackReorganization.total_priority_score(fixture_input)).to eq(8349)
     end
   end
+
+  describe '.badge_item' do
+    it 'return r' do
+      compartments = %w[vJrwpWtwJgWrhcsFMMfFFhFp jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL PmmdzqPrVvPwwTWBwg]
+      expect(Advent2022::RutsackReorganization.badge_item(compartments)).to eq('r')
+      compartments2 = %w[wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn ttgJtRGJQctTZtZT CrZsJsPPZsGzwwsLwLmpwMDw]
+      expect(Advent2022::RutsackReorganization.badge_item(compartments2)).to eq('Z')
+    end
+  end
+
+  describe '.total_badge_score' do
+    it 'returns 70' do
+      expect(Advent2022::RutsackReorganization.total_badge_score(example_input)).to eq(70)
+      fixture_input = File.read('./spec/fixtures/day_3_input.txt')
+      expect(Advent2022::RutsackReorganization.total_badge_score(fixture_input)).to eq(2681)
+    end
+  end
 end

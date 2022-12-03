@@ -19,6 +19,16 @@ module Advent2022
       end.sum
     end
 
+    sig { params(list_of_compartments: String).returns(T.nilable(Integer)) }
+    def self.total_badge_score(list_of_compartments)
+      items = list_of_compartments.split("\n").each_slice(3).map do |compartments|
+        badge_item(compartments)
+      end
+      items.map do |duplicated_item|
+        item_priority_score(duplicated_item)
+      end.sum
+    end
+
     sig { params(all_items: String).returns(T::Array[T.nilable(String)]) }
     def self.compartment_split(all_items)
       all_items_midpoint = all_items.length / 2
@@ -32,6 +42,13 @@ module Advent2022
     def self.duplicated_item(compartments)
       first_compartment, second_compartment = compartments
       T.must((T.must(first_compartment).split('') & T.must(second_compartment).split('')).first)
+    end
+
+    sig { params(raw_compartments: T::Array[T.nilable(String)]).returns(T.nilable(String)) }
+    def self.badge_item(raw_compartments)
+      compartments = raw_compartments.map { |c| c.split('') }
+      first_compartment = compartments.shift
+      first_compartment.intersection(*compartments).first
     end
 
     sig { params(item: String).returns(T.nilable(Integer)) }
