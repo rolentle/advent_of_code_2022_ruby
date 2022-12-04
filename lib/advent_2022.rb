@@ -2,6 +2,7 @@
 require 'sorbet-runtime'
 require './lib/advent_2022/paper_rock_scissors'
 require './lib/advent_2022/rutsack_reorganization'
+require './lib/advent_2022/camp_cleanup'
 
 # Main module for Advent of Code 2022
 module Advent2022
