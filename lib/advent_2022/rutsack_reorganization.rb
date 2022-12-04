@@ -25,7 +25,7 @@ module Advent2022
         badge_item(compartments)
       end
       items.map do |duplicated_item|
-        item_priority_score(duplicated_item)
+        item_priority_score(T.must(duplicated_item))
       end.sum
     end
 
@@ -46,7 +46,7 @@ module Advent2022
 
     sig { params(raw_compartments: T::Array[T.nilable(String)]).returns(T.nilable(String)) }
     def self.badge_item(raw_compartments)
-      compartments = raw_compartments.map { |c| c.split('') }
+      compartments = raw_compartments.map { |c| T.must(c).split('') }
       first_compartment = compartments.shift
       first_compartment.intersection(*compartments).first
     end
