@@ -18,7 +18,17 @@ describe 'day 3' do
       it 'returns true' do
         expect(Advent2022::CampCleanup.one_section_for_input(example_input).count).to eq(2)
         fixture_input = File.read('./spec/fixtures/day_4_input.txt')
-        expect(Advent2022::CampCleanup.one_section_for_input(fixture_input).count).to eq(2)
+        expect(Advent2022::CampCleanup.one_section_for_input(fixture_input).count).to eq(305)
+      end
+    end
+  end
+
+  describe '.any_overlapping_section_for_input' do
+    describe 'for example input' do
+      it 'returns true' do
+        expect(Advent2022::CampCleanup.any_overlapping_section_for_input(example_input).count).to eq(4)
+        fixture_input = File.read('./spec/fixtures/day_4_input.txt')
+        expect(Advent2022::CampCleanup.any_overlapping_section_for_input(fixture_input).count).to eq(811)
       end
     end
   end
