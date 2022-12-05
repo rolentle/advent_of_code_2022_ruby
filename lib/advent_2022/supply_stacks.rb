@@ -5,14 +5,17 @@ module Advent2022
   module SupplyStacks
     extend T::Sig
 
-    sig { params(stack_text: String)
-      .returns(
-        [
-          T::Hash[Integer, T::Array[String]],
-          T::Array[T::Array[Integer]]
-        ]
-      )
-    }
+    sig { params(stack_text: String) .returns( T::Hash[Integer, T::Array[String]]) }
+    def self.run_procedures(stack_text)
+      stacks, procedures = stacks_and_procedures(stack_text)
+
+      procedures.each_with_object(stacks) do |procedure, stacks_obj|
+        stack_count, original_stack, new_stack = procedure
+        stacks_obj[new_stack].push(*stacks_obj[original_stack].pop(stack_count).reverse)
+      end
+    end
+
+    sig { params(stack_text: String) .returns( [ T::Hash[Integer, T::Array[String]], T::Array[T::Array[Integer]] ]) }
     def self.stacks_and_procedures(stack_text)
       raw_stacks, raw_procedures = stack_text.split("\n\n")
       stacks_structure = stacks(raw_stacks)
