@@ -36,7 +36,21 @@ move 1 from 1 to 2
       expect(end_stacks.values.map(&:last)).to eq(%w[C M Z])
       fixture_input = File.read('./spec/fixtures/day_5_input.txt')
       fixture_end_stacks = Advent2022::SupplyStacks.run_procedures(fixture_input)
-      expect(fixture_end_stacks.values.map(&:last)).to eq(%w[C M Z])
+      expect(fixture_end_stacks.values.map(&:last)).to eq(%w[V G B B J C R M N])
+    end
+  end
+  describe '.run_procedures_9001' do
+    it 'returns the correct hash' do
+      end_stacks = Advent2022::SupplyStacks.run_procedures_9001(example_input)
+      expect(end_stacks).to eq({
+        1 => %w[M],
+        2 => %w[C],
+        3 => %w[P Z N D]
+      })
+      expect(end_stacks.values.map(&:last)).to eq(%w[M C D])
+      fixture_input = File.read('./spec/fixtures/day_5_input.txt')
+      fixture_end_stacks = Advent2022::SupplyStacks.run_procedures_9001(fixture_input)
+      expect(fixture_end_stacks.values.map(&:last)).to eq(%w[L B B V J B R M H])
     end
   end
 end
