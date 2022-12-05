@@ -5,9 +5,27 @@ module Advent2022
   module SupplyStacks
     extend T::Sig
 
-    sig { params(stack_text: String).returns(T::Hash[Integer, T::Array[String]]) }
-    def self.stacks(stack_text)
-      raw_stacks, procedures = stack_text.split("\n\n")
+    sig { params(stack_text: String)
+      .returns(
+        [
+          T::Hash[Integer, T::Array[String]],
+          T::Array[T::Array[Integer]]
+        ]
+      )
+    }
+    def self.stacks_and_procedures(stack_text)
+      raw_stacks, raw_procedures = stack_text.split("\n\n")
+      stacks_structure = stacks(raw_stacks)
+
+      procedures = raw_procedures.split("\n").map do |line|
+        line.gsub(/move|from|to/, '').split.map(&:to_i)
+      end
+
+      [stacks_structure, procedures]
+    end
+
+    sig { params(raw_stacks: String).returns(T::Hash[Integer, T::Array[String]]) }
+    def self.stacks(raw_stacks)
       stack_section = raw_stacks.split("\n")
       unformatted_stacks = stack_section.pop
       stacks = unformatted_stacks.split(' ')
@@ -20,7 +38,8 @@ module Advent2022
           trimmed_char if !trimmed_char.empty?
         end
       end.transpose.map(&:compact).map(&:reverse)
-      [stacks, crates].transpose.to_h
+
+      [stacks.map(&:to_i), crates].transpose.to_h
     end
   end
 end

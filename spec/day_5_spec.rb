@@ -16,13 +16,12 @@ move 1 from 1 to 2
     HEREDOC
   end
 
-  describe '.stacks' do
+  describe '.stacks_and_procedures' do
     it 'returns it as a hash' do
-      expect(Advent2022::SupplyStacks.stacks(example_input)).to eq({
-        "1" => %w[Z N],
-        "2" => %w[M C D],
-        "3" => %w[P]
-      })
+      expect(Advent2022::SupplyStacks.stacks_and_procedures(example_input)).to eq([
+        { 1 => %w[Z N], 2 => %w[M C D], 3 => %w[P] }, 
+        [[1, 2, 1], [3, 1, 3], [2, 2, 1], [1, 1, 2]]
+    ])
     end
   end
 end
