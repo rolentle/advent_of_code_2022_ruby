@@ -4,6 +4,7 @@ require './lib/advent_2022/paper_rock_scissors'
 require './lib/advent_2022/rutsack_reorganization'
 require './lib/advent_2022/camp_cleanup'
 require './lib/advent_2022/supply_stacks'
+require './lib/advent_2022/tuning_trouble'
 
 # Main module for Advent of Code 2022
 module Advent2022
