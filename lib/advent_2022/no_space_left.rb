@@ -68,8 +68,8 @@ module Advent2022
     end
 
 
-    sig { params(terminal_output: String).returns(String) }
-    def self.visual_output(terminal_output)
+    sig { params(terminal_output: String).returns([Node, T::Hash[String, Node]]) }
+    def self.data_structure(terminal_output: String)
       current_directory = nil
       nodes_by_id = {}
 
@@ -116,9 +116,8 @@ module Advent2022
           nodes_by_id[id(node: current_directory, nodes_by_id: nodes_by_id)] = current_directory
         end
       end
-
       root = nodes_by_id['/']
-      stringify(node: root, nodes_by_id: nodes_by_id, generation: 0)
+      [root, nodes_by_id]
     end
   end
 end

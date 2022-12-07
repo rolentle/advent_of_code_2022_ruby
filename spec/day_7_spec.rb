@@ -51,7 +51,8 @@ $ ls
 
   describe '.visual_output' do
     it 'returns the example' do
-      expect(Advent2022::NoSpaceLeft.visual_output(example_input)).to eq(visual_output.strip)
+      root, nodes_by_id = Advent2022::NoSpaceLeft.data_structure(terminal_output: example_input)
+      expect(Advent2022::NoSpaceLeft.stringify(node: root, nodes_by_id: nodes_by_id, generation: 0)).to eq(visual_output.strip)
     end
   end
 end
