@@ -31,11 +31,27 @@ module Advent2022
     def self.id(node:, nodes_by_id:)
       parent = nodes_by_id[node.parent_id]
       if parent && !node.is_root
-        id(node: parent, nodes_by_id: nodes_by_id) + node.name
+        if parent.is_root
+          '/' + node.name
+        else
+          id(node: parent, nodes_by_id: nodes_by_id) + '/' + node.name
+        end
       elsif node.is_root
         node.name
       else
         raise 'invalid id construction'
+      end
+    end
+
+    sig { params(node: Node, nodes_by_id: T::Hash[String, Node]).returns(Integer) }
+    def self.size(node:, nodes_by_id:)
+      case node.node_type
+      when NodeType::Dir
+        children(directory: node, nodes_by_id: nodes_by_id).sum do |child|
+          size(node: child, nodes_by_id: nodes_by_id)
+        end
+      when NodeType::File
+        node.size
       end
     end
 

@@ -55,4 +55,18 @@ $ ls
       expect(Advent2022::NoSpaceLeft.stringify(node: root, nodes_by_id: nodes_by_id, generation: 0)).to eq(visual_output.strip)
     end
   end
+
+  describe '.size' do
+    it 'returns the example' do
+      root, nodes_by_id = Advent2022::NoSpaceLeft.data_structure(terminal_output: example_input)
+      node = nodes_by_id['/a/e']
+      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(584)
+      node = nodes_by_id['/a']
+      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(94853)
+      node = nodes_by_id['/d']
+      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(24933642)
+
+      expect(Advent2022::NoSpaceLeft.size(node: root, nodes_by_id: nodes_by_id)).to eq(48381165)
+    end
+  end
 end
