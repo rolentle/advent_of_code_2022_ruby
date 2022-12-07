@@ -62,7 +62,6 @@ module Advent2022
       end
     end
 
-
     sig { params(directory: Node, nodes_by_id: T::Hash[String, Node]).returns(Node) }
     def self.parent(directory:, nodes_by_id:)
       nodes_by_id[directory.parent_id]
@@ -83,6 +82,16 @@ module Advent2022
       children_strings.unshift(node_string).join("\n")
     end
 
+    sig { params(nodes_by_id: T::Hash[String, Node]).returns(Integer) }
+    def self.solution(nodes_by_id:)
+      nodes_by_id.values.select do |node|
+        node.node_type == NodeType::Dir
+      end.map do |directory|
+        size(node: directory, nodes_by_id: nodes_by_id)
+      end.select do |dir_size|
+        dir_size <= 100_000
+      end.sum
+    end
 
     sig { params(terminal_output: String).returns([Node, T::Hash[String, Node]]) }
     def self.data_structure(terminal_output: String)

@@ -62,11 +62,24 @@ $ ls
       node = nodes_by_id['/a/e']
       expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(584)
       node = nodes_by_id['/a']
-      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(94853)
+      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(94_853)
       node = nodes_by_id['/d']
-      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(24933642)
+      expect(Advent2022::NoSpaceLeft.size(node: node, nodes_by_id: nodes_by_id)).to eq(24_933_642)
 
-      expect(Advent2022::NoSpaceLeft.size(node: root, nodes_by_id: nodes_by_id)).to eq(48381165)
+      expect(Advent2022::NoSpaceLeft.size(node: root, nodes_by_id: nodes_by_id)).to eq(48_381_165)
+    end
+  end
+
+  describe '.solution' do
+    it 'returns the example' do
+      root, nodes_by_id = Advent2022::NoSpaceLeft.data_structure(terminal_output: example_input)
+      expect(Advent2022::NoSpaceLeft.solution(nodes_by_id: nodes_by_id)).to eq(95_437)
+    end
+
+    it 'returns the fixture value' do
+      fixture_input = File.read('./spec/fixtures/day_7_input.txt')
+      root, nodes_by_id = Advent2022::NoSpaceLeft.data_structure(terminal_output: fixture_input)
+      expect(Advent2022::NoSpaceLeft.solution(nodes_by_id: nodes_by_id)).to eq(1_845_346)
     end
   end
 end
