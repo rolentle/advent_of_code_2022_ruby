@@ -93,6 +93,21 @@ module Advent2022
       end.sum
     end
 
+    sig { params(nodes_by_id: T::Hash[String, Node], total_disk_space: Integer, required_disk_space: Integer).returns(Integer) }
+    def self.solution_2(nodes_by_id:, total_disk_space: 70_000_000, required_disk_space: 30_000_000)
+      used_disk_space = size(node: nodes_by_id['/'], nodes_by_id: nodes_by_id)
+      free_disk_space = total_disk_space - used_disk_space
+      need_disk_space = required_disk_space - free_disk_space
+
+      nodes_by_id.values.select do |node|
+        node.node_type == NodeType::Dir
+      end.map do |directory|
+        size(node: directory, nodes_by_id: nodes_by_id)
+      end.select do |dir_size|
+        need_disk_space <= dir_size
+      end.min
+    end
+
     sig { params(terminal_output: String).returns([Node, T::Hash[String, Node]]) }
     def self.data_structure(terminal_output: String)
       current_directory = nil
