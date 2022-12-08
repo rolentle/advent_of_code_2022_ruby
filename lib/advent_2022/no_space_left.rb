@@ -64,7 +64,7 @@ module Advent2022
 
     sig { params(directory: Node, nodes_by_id: T::Hash[String, Node]).returns(Node) }
     def self.parent(directory:, nodes_by_id:)
-      nodes_by_id[T.must(directory.parent_id)]
+      T.must(nodes_by_id[T.must(directory.parent_id)])
     end
 
     sig { params(node: Node, nodes_by_id: T::Hash[String, Node], generation: Integer).returns(String) }
@@ -127,14 +127,14 @@ module Advent2022
             nodes_by_id[id] = current_directory
             current_directory
           when '..'
-            current_directory = parent(directory: current_directory, nodes_by_id: nodes_by_id)
+            current_directory = parent(directory: T.must(current_directory), nodes_by_id: nodes_by_id)
           else
-            current_directory = children(directory: current_directory, nodes_by_id: nodes_by_id).find do |child|
+            current_directory = children(directory: T.must(current_directory), nodes_by_id: nodes_by_id).find do |child|
               child.name == arg
             end
           end
         when 'ls'
-          parent_id = id(node: current_directory, nodes_by_id: nodes_by_id)
+          parent_id = id(node: T.must(current_directory), nodes_by_id: nodes_by_id)
           children = outputs.map do |output|
             first_item, second_item = output.split(' ')
             case first_item

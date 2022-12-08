@@ -15,7 +15,7 @@ module Advent2022
         end
       end
 
-      marker
+      T.must(marker)
     end
 
     sig { params(buffer: String).returns(Integer) }
@@ -28,7 +28,7 @@ module Advent2022
         end
       end
 
-      marker
+      T.must(marker)
     end
   end
 end

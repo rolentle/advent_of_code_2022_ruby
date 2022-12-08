@@ -11,7 +11,7 @@ module Advent2022
 
       procedures.each_with_object(stacks) do |procedure, stacks_obj|
         stack_count, original_stack, new_stack = procedure
-        stacks_obj[T.must(new_stack)].push(*stacks_obj[T.must(original_stack)].pop(T.must(stack_count)).reverse)
+        stacks_obj[T.must(new_stack)].push(*T.must(stacks_obj[T.must(original_stack)]).pop(T.must(stack_count)).reverse)
       end
     end
 
@@ -21,7 +21,7 @@ module Advent2022
 
       procedures.each_with_object(stacks) do |procedure, stacks_obj|
         stack_count, original_stack, new_stack = procedure
-        stacks_obj[T.must(new_stack)].push(*stacks_obj[T.must(original_stack)].pop(T.must(stack_count)))
+        stacks_obj[T.must(new_stack)].push(*T.must(stacks_obj[T.must(original_stack)]).pop(T.must(stack_count)))
       end
     end
 
