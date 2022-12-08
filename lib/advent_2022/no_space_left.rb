@@ -109,7 +109,7 @@ module Advent2022
     end
 
     sig { params(terminal_output: String).returns([Node, T::Hash[String, Node]]) }
-    def self.data_structure(terminal_output: String)
+    def self.data_structure(terminal_output:)
       current_directory = T.let(nil, T.nilable(Advent2022::NoSpaceLeft::Node))
       nodes_by_id = {}
 
@@ -135,13 +135,13 @@ module Advent2022
           end
         when 'ls'
           parent_id = id(node: T.must(current_directory), nodes_by_id: nodes_by_id)
-          children = outputs.map do |output|
+          children = T.must(outputs).map do |output|
             first_item, second_item = output.split(' ')
             case first_item
             when 'dir'
-              node = Node.new(name: second_item, node_type: NodeType::Dir, parent_id: parent_id, is_root: false)
+              node = Node.new(name: T.must(second_item), node_type: NodeType::Dir, parent_id: parent_id, is_root: false)
             else
-              node = Node.new(name: second_item, node_type: NodeType::File, parent_id: parent_id, size: first_item.to_i, is_root: false)
+              node = Node.new(name: T.must(second_item), node_type: NodeType::File, parent_id: parent_id, size: first_item.to_i, is_root: false)
             end
             nodes_by_id[id(node: node, nodes_by_id: nodes_by_id)] = node
 
@@ -151,7 +151,7 @@ module Advent2022
           children_ids = children.map do |child|
             id(node: child, nodes_by_id: nodes_by_id)
           end
-          new_props = current_directory.initialize.merge("children_ids" => children_ids)
+          new_props = T.must(current_directory).serialize.merge('children_ids' => children_ids)
           current_directory = Node.from_hash(new_props)
           nodes_by_id[id(node: current_directory, nodes_by_id: nodes_by_id)] = current_directory
         end
