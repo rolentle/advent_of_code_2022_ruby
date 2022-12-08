@@ -7,7 +7,7 @@ module Advent2022
 
     sig { params(buffer: String).returns(Integer) }
     def self.marker(buffer)
-      marker = nil
+      marker = T.let(nil, T.nilable(Integer))
       buffer.split('').each_cons(4).with_index do |sliced, index|
         if sliced == sliced.uniq
           marker = index + 4
@@ -20,7 +20,7 @@ module Advent2022
 
     sig { params(buffer: String).returns(Integer) }
     def self.messages(buffer)
-      marker = nil
+      marker = T.let(nil, T.nilable(Integer))
       buffer.split('').each_cons(14).with_index do |sliced, index|
         if sliced == sliced.uniq
           marker = index + 14

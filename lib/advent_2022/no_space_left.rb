@@ -29,7 +29,7 @@ module Advent2022
 
     sig { params(node: Node, nodes_by_id: T::Hash[String, Node]).returns(String) }
     def self.id(node:, nodes_by_id:)
-      parent = nodes_by_id[node.parent_id]
+      parent = nodes_by_id[T.must(node.parent_id)]
       if parent && !node.is_root
         if parent.is_root
           '/' + node.name
@@ -64,7 +64,7 @@ module Advent2022
 
     sig { params(directory: Node, nodes_by_id: T::Hash[String, Node]).returns(Node) }
     def self.parent(directory:, nodes_by_id:)
-      nodes_by_id[directory.parent_id]
+      nodes_by_id[T.must(directory.parent_id)]
     end
 
     sig { params(node: Node, nodes_by_id: T::Hash[String, Node], generation: Integer).returns(String) }
@@ -95,22 +95,22 @@ module Advent2022
 
     sig { params(nodes_by_id: T::Hash[String, Node], total_disk_space: Integer, required_disk_space: Integer).returns(Integer) }
     def self.solution_2(nodes_by_id:, total_disk_space: 70_000_000, required_disk_space: 30_000_000)
-      used_disk_space = size(node: nodes_by_id['/'], nodes_by_id: nodes_by_id)
+      used_disk_space = size(node: T.must(nodes_by_id['/']), nodes_by_id: nodes_by_id)
       free_disk_space = total_disk_space - used_disk_space
       need_disk_space = required_disk_space - free_disk_space
 
-      nodes_by_id.values.select do |node|
+      T.must(nodes_by_id.values.select do |node|
         node.node_type == NodeType::Dir
       end.map do |directory|
         size(node: directory, nodes_by_id: nodes_by_id)
       end.select do |dir_size|
         need_disk_space <= dir_size
-      end.min
+      end.min)
     end
 
     sig { params(terminal_output: String).returns([Node, T::Hash[String, Node]]) }
     def self.data_structure(terminal_output: String)
-      current_directory = nil
+      current_directory = T.let(nil, T.nilable(Advent2022::NoSpaceLeft::Node))
       nodes_by_id = {}
 
       commands_and_ouputs = terminal_output.split('$ ')
@@ -151,7 +151,7 @@ module Advent2022
           children_ids = children.map do |child|
             id(node: child, nodes_by_id: nodes_by_id)
           end
-          new_props = current_directory.serialize.merge("children_ids" => children_ids)
+          new_props = current_directory.initialize.merge("children_ids" => children_ids)
           current_directory = Node.from_hash(new_props)
           nodes_by_id[id(node: current_directory, nodes_by_id: nodes_by_id)] = current_directory
         end
