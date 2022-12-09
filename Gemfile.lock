@@ -47,6 +47,8 @@ GEM
     sorbet-static-and-runtime (0.5.10566)
       sorbet (= 0.5.10566)
       sorbet-runtime (= 0.5.10566)
+    sorbet-struct-comparable (1.3.0)
+      sorbet-runtime (>= 0.5)
     spoom (1.1.13)
       sorbet (>= 0.5.9204)
       sorbet-runtime (>= 0.5.9204)
@@ -83,6 +85,7 @@ DEPENDENCIES
   rspec
   sorbet
   sorbet-runtime
+  sorbet-struct-comparable
   tapioca
 
 BUNDLED WITH
