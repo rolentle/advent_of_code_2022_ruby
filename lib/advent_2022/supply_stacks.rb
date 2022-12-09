@@ -42,9 +42,9 @@ module Advent2022
     def self.stacks(raw_stacks)
       stack_section = raw_stacks.split("\n")
       unformatted_stacks = stack_section.pop
-      stacks = T.must(unformatted_stacks).split(' ')
+      stacks = T.must(unformatted_stacks).split(' ').compact
 
-      crates = stack_section.map do |line| 
+      crates = stack_section.map do |line|
         line.chars.each_slice(4).map { |e| e }
       end.map do |line|
         line.map do |c|
@@ -52,7 +52,6 @@ module Advent2022
           trimmed_char if !trimmed_char.empty?
         end
       end.transpose.map(&:compact).map(&:reverse)
-
       [stacks.map(&:to_i), crates].transpose.to_h
     end
   end
