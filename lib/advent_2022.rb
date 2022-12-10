@@ -8,6 +8,7 @@ require './lib/advent_2022/tuning_trouble'
 require './lib/advent_2022/no_space_left'
 require './lib/advent_2022/treetop'
 require './lib/advent_2022/rope_bridge'
+require './lib/advent_2022/cathode_ray_tube'
 
 # Main module for Advent of Code 2022
 module Advent2022
