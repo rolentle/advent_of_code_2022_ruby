@@ -205,6 +205,9 @@ noop
       HEREDOC
 
       expect(actual_output).to eq(expected_output)
+      fixture_input = File.read('./spec/fixtures/day_10_input.txt')
+      actual_output = Advent2022::CathodeRayTube.solution2(fixture_input)
+      expect(actual_output).to eq(expected_output)
     end
   end
 end
