@@ -164,30 +164,47 @@ noop
     it 'returns for example' do
       # expect(Advent2022::CathodeRayTube.solution(example_input)).to eq([1,1, 1, 4, 4, -1])
       cycle_times = Advent2022::CathodeRayTube.solution(example_input2)
-      cycle20 = cycle_times[20] * 20
+      puts cycle_times
+      cycle20 = cycle_times[19] * 20
+      cycle60 = cycle_times[59] * 60
+      cycle100 = cycle_times[99] * 100
+      cycle140 = cycle_times[139] * 140
+      cycle180 = cycle_times[179] * 180
+      cycle220 = cycle_times[219] * 220
       expect(cycle20).to eq(420)
-      cycle60 = cycle_times[60] * 60
       expect(cycle60).to eq(1140)
-      cycle100 = cycle_times[100] * 100
       expect(cycle100).to eq(1800)
-      cycle140 = cycle_times[140] * 140
       expect(cycle140).to eq(2940)
-      cycle180 = cycle_times[180] * 180
       expect(cycle180).to eq(2880)
-      expect(cycle_times[220]).to eq(18)
-      cycle220 = cycle_times[220] * 220
       expect(cycle220).to eq(3960)
       expect([cycle20, cycle60, cycle100,cycle140, cycle180, cycle220].sum).to eq(13_140)
 
       fixture_input = File.read('./spec/fixtures/day_10_input.txt')
       cycle_times = Advent2022::CathodeRayTube.solution(fixture_input)
-      cycle20 = cycle_times[20] * 20
-      cycle60 = cycle_times[60] * 60
-      cycle100 = cycle_times[100] * 100
-      cycle140 = cycle_times[140] * 140
-      cycle180 = cycle_times[180] * 180
-      cycle220 = cycle_times[220] * 220
-      expect([cycle20, cycle60, cycle100,cycle140, cycle180, cycle220].sum).to eq(13_140)
+      cycle20 = cycle_times[19] * 20
+      cycle60 = cycle_times[59] * 60
+      cycle100 = cycle_times[99] * 100
+      cycle140 = cycle_times[139] * 140
+      cycle180 = cycle_times[179] * 180
+      cycle220 = cycle_times[219] * 220
+      expect([cycle20, cycle60, cycle100,cycle140, cycle180, cycle220].sum).to eq(12_980)
+      expect(cycle_times.count).to eq(240)
+    end
+  end
+  describe '.solution2' do
+    it 'returns for example' do
+      # expect(Advent2022::CathodeRayTube.solution(example_input)).to eq([1,1, 1, 4, 4, -1])
+      actual_output = Advent2022::CathodeRayTube.solution2(example_input2)
+      expected_output = <<~HEREDOC
+##..##..##..##..##..##..##..##..##..##..
+###...###...###...###...###...###...###.
+####....####....####....####....####....
+#####.....#####.....#####.....#####.....
+######......######......######......####
+#######.......#######.......#######.....
+      HEREDOC
+
+      expect(actual_output).to eq(expected_output)
     end
   end
 end
