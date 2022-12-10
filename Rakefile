@@ -14,6 +14,8 @@ describe 'day #{args.day_number}' do
   describe '.solution' do
     it 'returns for example' do
       expect(Advent2022::#{args.class_name.camelcase}.solution(example_input)).to eq(false)
+      fixture_input = File.read('./spec/fixtures/day_#{args.day_number}_input.txt')
+      expect(Advent2022::#{args.class_name.camelcase}.solution(fixture_input)).to eq(false)
     end
   end
 end
